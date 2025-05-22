@@ -24,6 +24,7 @@ public class UserController {
 		user.setId(idCounter++);
 		userStore.put(user.getId(), user);
 		return user;
+	
 	}
 	@GetMapping
 	public Collection<User> getAllUser(){
