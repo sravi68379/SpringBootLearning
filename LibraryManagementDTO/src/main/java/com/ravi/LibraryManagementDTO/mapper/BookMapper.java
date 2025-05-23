@@ -1,4 +1,3 @@
-// src/main/java/com/ravi/LibraryManagementDTO/mapper/BookMapper.java
 package com.ravi.LibraryManagementDTO.mapper;
 
 import com.ravi.LibraryManagementDTO.model.Book;
@@ -12,9 +11,7 @@ import java.util.Collections; // For Collections.emptySet()
 @Component
 public class BookMapper {
 
-    // Constructor no longer needs AuthorMapper or BorrowerMapper for BookResponseDTO's simplified fields.
-    // If these mappers were used for other methods/DTOs within BookMapper, they would remain.
-    // For now, assuming they are not needed for other tasks in this mapper.
+    
     public BookMapper() {}
 
     public BookResponseDTO toResponseDto(Book book) {
@@ -51,7 +48,6 @@ public class BookMapper {
         book.setTitle(requestDTO.getTitle());
         book.setIsbn(requestDTO.getIsbn());
         book.setPublishedDate(requestDTO.getPublishedDate());
-        // Authors will be set in service
         return book;
     }
 }

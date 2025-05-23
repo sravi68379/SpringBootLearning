@@ -1,4 +1,3 @@
-// src/main/java/com/ravi/LibraryManagementDTO/mapper/AuthorMapper.java
 package com.ravi.LibraryManagementDTO.mapper;
 
 import com.ravi.LibraryManagementDTO.model.Author;
@@ -43,12 +42,5 @@ public class AuthorMapper {
         author.setName(authorDTO.getName());
         author.setBio(authorDTO.getBio());
         return author;
-    }
-
-    public Set<AuthorDTO> toDtoSet(Set<Author> authors) {
-        if (authors == null) {
-            return Collections.emptySet();
-        }
-        return authors.stream().map(this::toDto).collect(Collectors.toSet());
     }
 }

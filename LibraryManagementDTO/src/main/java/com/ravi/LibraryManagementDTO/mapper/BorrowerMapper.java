@@ -24,7 +24,7 @@ public class BorrowerMapper {
 
         if (borrower.getBorrowedBooks() != null && !borrower.getBorrowedBooks().isEmpty()) {
             borrowerDTO.setBorrowedBooks(borrower.getBorrowedBooks().stream()
-                    .map(Book::getTitle) // Extract title directly
+                    .map(Book::getTitle)
                     .collect(Collectors.toSet()));
         } else {
             borrowerDTO.setBorrowedBooks(Collections.emptySet());
