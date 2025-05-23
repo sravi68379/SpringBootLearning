@@ -26,16 +26,16 @@ public class BookMapper {
 
         if (book.getAuthors() != null && !book.getAuthors().isEmpty()) {
             dto.setAuthorNames(book.getAuthors().stream()
-                    .map(Author::getName) // Extract name directly
+                    .map(Author::getName)
                     .collect(Collectors.toSet()));
         } else {
             dto.setAuthorNames(Collections.emptySet());
         }
 
         if (book.getBorrower() != null) {
-            dto.setBorrowerName(book.getBorrower().getName()); // Extract name directly
+            dto.setBorrowerName(book.getBorrower().getName());
         } else {
-            dto.setBorrowerName(null); // Or an empty string, depending on preference
+            dto.setBorrowerName(null);
         }
         return dto;
     }

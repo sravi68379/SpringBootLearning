@@ -1,4 +1,3 @@
-// src/main/java/com/ravi/LibraryManagementDTO/dto/AuthorDTO.java
 package com.ravi.LibraryManagementDTO.dto;
 
 import java.util.Set;
@@ -8,7 +7,7 @@ public class AuthorDTO {
     private Long id;
     private String name;
     private String bio;
-    private Set<String> writtenBooks = new HashSet<>(); // Changed to Set<String>
+    private Set<String> writtenBooks = new HashSet<>(); 
 
     public AuthorDTO() {}
 
@@ -25,7 +24,7 @@ public class AuthorDTO {
         this.writtenBooks = writtenBooks;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }

@@ -1,4 +1,3 @@
-// src/main/java/com/ravi/LibraryManagementDTO/dto/BookResponseDTO.java
 package com.ravi.LibraryManagementDTO.dto;
 
 import java.time.LocalDate;
@@ -10,10 +9,10 @@ public class BookResponseDTO {
     private String title;
     private String isbn;
     private LocalDate publishedDate;
-    private Set<String> authorNames = new HashSet<>(); // Changed to Set<String>
-    private String borrowerName; // Changed to String
+    private Set<String> authorNames = new HashSet<>(); 
+    private String borrowerName; 
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }

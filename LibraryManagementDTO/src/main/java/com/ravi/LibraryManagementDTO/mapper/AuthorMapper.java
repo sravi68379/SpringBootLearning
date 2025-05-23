@@ -25,7 +25,7 @@ public class AuthorMapper {
 
         if (author.getBooks() != null && !author.getBooks().isEmpty()) {
             authorDTO.setWrittenBooks(author.getBooks().stream()
-                    .map(Book::getTitle) // Extract title directly
+                    .map(Book::getTitle) 
                     .collect(Collectors.toSet()));
         } else {
             authorDTO.setWrittenBooks(Collections.emptySet());

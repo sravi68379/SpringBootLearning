@@ -50,17 +50,4 @@ public class Borrower {
     public void setBorrowedBooks(Set<Book> borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Borrower borrower = (Borrower) o;
-        return id != null && id.equals(borrower.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

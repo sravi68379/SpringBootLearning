@@ -23,8 +23,7 @@ public class BorrowerDTO {
         this.email = email;
         this.borrowedBooks = borrowedBooks;
     }
-
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }
