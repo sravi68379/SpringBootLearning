@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -16,24 +17,27 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllStudents() {
-        return repository.findAll();
+    public List<StudentResponseDTO> getAllStudents() {
+        return repository.findAll().stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Student> getStudentById(Long id) {
-        return repository.findById(id);
+    public Optional<StudentResponseDTO> getStudentById(Long id) {
+        return repository.findById(id)
+                .map(this::convertToResponseDTO);
     }
 
     @Override
-    public Student createStudent(StudentRequestDTO studentRequestDTO) {
+    public StudentResponseDTO createStudent(StudentRequestDTO studentRequestDTO) {
         Student student = convertToEntity(studentRequestDTO);
         Student savedStudent = repository.save(student);
-        return savedStudent;
+        return convertToResponseDTO(savedStudent);
     }
 
     @Override
-    public Student updateStudent(Long id, StudentRequestDTO studentRequestDTO) {
+    public StudentResponseDTO updateStudent(Long id, StudentRequestDTO studentRequestDTO) {
         return repository.findById(id)
                 .map(existingStudent -> {
                     String[] nameParts = studentRequestDTO.getName().split(" ", 2);
@@ -42,7 +46,7 @@ public class StudentServiceImpl implements StudentService {
                     existingStudent.setEmail(studentRequestDTO.getEmail());
                     existingStudent.setAge(studentRequestDTO.getAge());
                     Student updatedStudent = repository.save(existingStudent);
-                    return updatedStudent;
+                    return convertToResponseDTO(updatedStudent);
                 }).orElse(null);
     }
 
@@ -52,8 +56,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByEmail(String email) {
-        return repository.findByEmail(email);
+    public List<StudentResponseDTO> findByEmail(String email) {
+        return repository.findByEmail(email).stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
     }
 
     private Student convertToEntity(StudentRequestDTO dto) {
@@ -66,5 +72,7 @@ public class StudentServiceImpl implements StudentService {
         return student;
     }
 
-   
+    private StudentResponseDTO convertToResponseDTO(Student student) {
+        return new StudentResponseDTO(student.getId(), student.getFirstName() + " " + student.getLastName(), student.getEmail(), student.getAge());
+    }
 }

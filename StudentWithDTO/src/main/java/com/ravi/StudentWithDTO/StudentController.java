@@ -1,5 +1,7 @@
 package com.ravi.StudentWithDTO;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,37 +18,43 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudents();
-        
+    public ResponseEntity<List<StudentResponseDTO>> getAllStudents() {
+        List<StudentResponseDTO> students = studentService.getAllStudents();
+        return ResponseEntity.ok(students);
     }
 
     @GetMapping("/{id}")
-    public Optional<Student> getStudentById(@PathVariable Long id) {
-        return studentService.getStudentById(id);
+    public ResponseEntity<StudentResponseDTO> getStudentById(@PathVariable Long id) {
+        Optional<StudentResponseDTO> student = studentService.getStudentById(id);
+        return student.map(ResponseEntity::ok)
+                      .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Student createStudent(@RequestBody StudentRequestDTO studentRequestDTO) {
-        return studentService.createStudent(studentRequestDTO);
-
+    public ResponseEntity<StudentResponseDTO> createStudent(@RequestBody StudentRequestDTO studentRequestDTO) {
+        StudentResponseDTO createdStudent = studentService.createStudent(studentRequestDTO);
+        return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public Student updateStudent(@PathVariable Long id, @RequestBody StudentRequestDTO studentRequestDTO) {
-        return studentService.updateStudent(id, studentRequestDTO);
-          
+    public ResponseEntity<StudentResponseDTO> updateStudent(@PathVariable Long id, @RequestBody StudentRequestDTO studentRequestDTO) {
+        StudentResponseDTO updatedStudent = studentService.updateStudent(id, studentRequestDTO);
+        if (updatedStudent != null) {
+            return ResponseEntity.ok(updatedStudent);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
-        
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
-    public List<Student> findByEmail(@RequestParam String email) {
-        return studentService.findByEmail(email);
-        
+    public ResponseEntity<List<StudentResponseDTO>> findByEmail(@RequestParam String email) {
+        List<StudentResponseDTO> students = studentService.findByEmail(email);
+        return ResponseEntity.ok(students);
     }
 }
